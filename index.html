@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&D Enemy Wiki</title>
+    <style>
+        :root {
+            --dnd-red: #822000;
+            --parchment: #fdf6e3;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eee;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: var(--parchment);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        h1 { color: var(--dnd-red); text-align: center; }
+        
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: center;
+        }
+        th { background-color: var(--dnd-red); color: white; }
+        tr:nth-child(even) { background-color: #f2ead2; }
+
+        /* Form Styling */
+        .admin-section {
+            background: #eaddca;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 10px;
+        }
+        input {
+            padding: 8px;
+            border: 1px solid #aaa;
+            border-radius: 4px;
+        }
+        button {
+            grid-column: span 2;
+            padding: 10px;
+            background: var(--dnd-red);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover { background: #a32a00; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>⚔️ Monster Compendium</h1>
+
+    <div class="admin-section">
+        <h3>Add New Enemy</h3>
+        <form id="enemyForm" class="form-group">
+            <input type="number" id="id" placeholder="ID" required>
+            <input type="text" id="name" placeholder="Enemy Name" required>
+            <input type="number" id="str" placeholder="STR">
+            <input type="number" id="dex" placeholder="DEX">
+            <input type="number" id="con" placeholder="CON">
+            <input type="number" id="int" placeholder="INT">
+            <input type="number" id="wis" placeholder="WIS">
+            <input type="number" id="cha" placeholder="CHA">
+            <button type="submit">Add to Wiki</button>
+        </form>
+    </div>
+
+    <table id="wikiTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>STR</th>
+                <th>DEX</th>
+                <th>CON</th>
+                <th>INT</th>
+                <th>WIS</th>
+                <th>CHA</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>001</td>
+                <td>Goblin</td>
+                <td>8</td>
+                <td>14</td>
+                <td>10</td>
+                <td>10</td>
+                <td>8</td>
+                <td>8</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    const form = document.getElementById('enemyForm');
+    const tableBody = document.querySelector('#wikiTable tbody');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Get values from inputs
+        const id = document.getElementById('id').value;
+        const name = document.getElementById('name').value;
+        const str = document.getElementById('str').value;
+        const dex = document.getElementById('dex').value;
+        const con = document.getElementById('con').value;
+        const int = document.getElementById('int').value;
+        const wis = document.getElementById('wis').value;
+        const cha = document.getElementById('cha').value;
+
+        // Create a new row
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${id}</td>
+            <td><strong>${name}</strong></td>
+            <td>${str}</td>
+            <td>${dex}</td>
+            <td>${con}</td>
+            <td>${int}</td>
+            <td>${wis}</td>
+            <td>${cha}</td>
+        `;
+
+        // Append to table
+        tableBody.appendChild(row);
+
+        // Clear the form
+        form.reset();
+    });
+</script>
+
+</body>
+</html>
